@@ -1,0 +1,14 @@
+<h1>{{title}}</h1><br/>
+<h2>{{greeting}}</h2>
+<nav>
+<a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+<a routerLink="/items" routerLinkActive="active">Items</a>
+</nav>
+<router-outlet></router-outlet>
+<app-messages></app-messages>
+
+<ul>
+    <li *ngFor="let item of items | async">
+      {{ item.name }}
+    </li>
+  </ul>

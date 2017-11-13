@@ -1,0 +1,31 @@
+<div *ngIf="item">
+  <h2>{{item.name}} details!</h2>
+  <div>
+    <label>sku: </label>{{item.sku}}</div>
+  <div>
+    <label>name: </label>
+    <input [(ngModel)]="item.name" placeholder="name" />
+  </div>
+  <div>
+    <label>description: </label>
+    <input [(ngModel)]="item.description" placeholder="description" />
+  </div>
+  <div>
+    <label>price: </label>
+    <input [(ngModel)]="item.price" placeholder="price" />
+  </div>
+  <div>
+    <label>tags: </label>
+    <input [(ngModel)]="item.tags" placeholder="tags" />
+  </div>
+  <div>
+    <label>picture: </label>
+    <input [(ngModel)]="item.picture" placeholder="picture" />
+    <img src="{{item.picture}}" alt="Item picture" />
+  </div>
+  <div>
+    <label>currency: </label>
+    <input [(ngModel)]="item.currency" placeholder="currency" width=50/>
+  </div>
+</div>
+<button (click)="goBack()">Back</button>
