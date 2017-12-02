@@ -3,12 +3,9 @@
 <nav>
 <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
 <a routerLink="/items" routerLinkActive="active">Items</a>
+<a routerLink="/login" routerLinkActive="active">Login</a>
+
 </nav>
+<!--alert></alert-->
 <router-outlet></router-outlet>
 <app-messages></app-messages>
-
-<ul>
-    <li *ngFor="let item of items | async">
-      {{ item.name }}
-    </li>
-  </ul>

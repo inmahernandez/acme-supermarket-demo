@@ -19,6 +19,7 @@ export class ItemsComponent implements OnInit {
 
   getItems(): void {
     this.itemService.getNonDeletedItems()
+    //this.itemService.getRemoteItems()
     .subscribe(items => this.data = items);
   }
 }

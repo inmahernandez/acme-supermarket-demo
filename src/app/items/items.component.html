@@ -1,6 +1,6 @@
 <h2>My Items</h2>
 <ul class="items">
-  <li *ngFor="let item of data.items">
+  <li *ngFor="let item of data">
        <a routerLink="/detail/{{item.id}}">
          <span class="badge">{{item.id}}</span> {{item.name}}
       </a>

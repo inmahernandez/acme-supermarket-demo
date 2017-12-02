@@ -22,17 +22,20 @@ export class ItemService {
     return of(ITEMS);
   }
 
-  /**getNonDeletedItems(): Observable<Item[]> {
+  getNonDeletedItems(): Observable<Item[]> {
    // Todo: send the message _after_ fetching the items
     this.messageService.add('ItemService: fetched non-deleted items');
     return of(ITEMS.filter(item => item.deleted == false));
-  }*/
+  }
 
-  getNonDeletedItems():  Observable<any> {
+  /**
+   * This method will be used once that we have a backend REST endpoint to call
+   */
+  getRemoteItems():  Observable<any> {
     // Todo: send the message _after_ fetching the items
     this.messageService.add('ItemService: fetched non-deleted items');
     return this.http.get(this.itemsUrl);
-  }
+   }
 
   getItem(id: number): Observable<Item> {
     // Todo: send the message _after_ fetching the item
