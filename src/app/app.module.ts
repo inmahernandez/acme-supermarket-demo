@@ -3,6 +3,11 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule}    from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from "@angular/common";
+
+import { Ng2TableModule } from 'ng2-table/components/ng-table-module';
+import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 //Custom components
 import { AppComponent }  from './app.component';
@@ -28,6 +33,10 @@ import { AlertService, AuthenticationService, UserService } from './services/ind
                   HttpModule,
                   AppRoutingModule,
                   HttpClientModule,
+                  CommonModule,
+                  Ng2TableModule,
+                  PaginationModule.forRoot(),
+                  TabsModule,
                 ],
   declarations: [ AppComponent, ItemDetailComponent, 
         ItemsComponent, DashboardComponent, 

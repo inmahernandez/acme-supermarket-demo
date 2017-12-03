@@ -1,13 +1,13 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Location }                 from '@angular/common';
+import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
 import { Item } from '../model/item';
 import { ItemService } from '../services/item.service';
 
 @Component({
-  selector: 'item-detail',
+  selector: 'app-item-detail',
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css'],
 })
