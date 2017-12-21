@@ -3,8 +3,8 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
-import { Item } from '../model/item';
-import { ItemService } from '../services/item.service';
+import { ItemModel } from './shared/item.model';
+import { ItemService } from '../shoppingCart/shared/item.service';
 
 @Component({
   selector: 'app-item-detail',
@@ -12,7 +12,7 @@ import { ItemService } from '../services/item.service';
   styleUrls: ['./item-detail.component.css'],
 })
 export class ItemDetailComponent implements OnInit{
-    @Input() item: Item;
+    @Input() item: ItemModel;
 
     constructor(
         private itemService: ItemService,

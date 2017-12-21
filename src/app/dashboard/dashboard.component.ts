@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Item } from '../model/item';
-import { ItemService } from '../services/item.service';
+import { ItemModel } from '../item-detail/shared/item.model';
+import { ItemService } from '../shoppingCart/shared/item.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -8,7 +8,7 @@ import { ItemService } from '../services/item.service';
   styleUrls: [ './dashboard.component.css' ]
 })
 export class DashboardComponent implements OnInit {
-  items: Item[] = [];
+  items: ItemModel[] = [];
 
   constructor(private itemService: ItemService) { }
 

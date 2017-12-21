@@ -1,0 +1,38 @@
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet">
+<h2 i18n="@@introductionHeader">My Items</h2>
+<span i18n="@@sampleParagraph">This is a sample internationalised paragraph, just for fun</span>
+<!-- ul class="items">
+  <li *ngFor="let item of data">
+       <a routerLink="/detail/{{item.id}}">
+         <span class="badge">{{item.id}}</span> {{item.name}}
+      </a>
+  </li>
+</ul-->
+
+<div class="row">
+  <div class="col-md-4">
+     <input *ngIf="config.filtering" i18n-placeholder placeholder="Filter all columns"
+           [ngTableFiltering]="config.filtering"
+           class="form-control"
+           (tableChanged)="onChangeTable(config)"/>
+  </div>
+</div>
+<br>
+<ng-table [config]="config"
+          (tableChanged)="onChangeTable(config)"
+          (cellClicked)="onCellClick($event)"
+          [rows]="rows" [columns]="columns">
+</ng-table>
+<pagination *ngIf="config.paging"
+            class="pagination-sm"
+            [(ngModel)]="page"
+            [totalItems]="length"
+            [itemsPerPage]="itemsPerPage"
+            [maxSize]="maxSize"
+            [boundaryLinks]="true"
+            [rotate]="false"
+            (pageChanged)="onChangeTable(config, $event)"
+            (numPages)="numPages = $event">
+</pagination>
+<pre *ngIf="config.paging" class="card card-block card-header">Page: {{page}} / {{numPages}}</pre>

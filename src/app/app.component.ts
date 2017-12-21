@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Item } from './model/item';
-import { ItemService } from './services/item.service';
+import { ItemModel } from './item-detail/shared/item.model';
+import { ItemService } from './shoppingCart/shared/item.service';
 import { MessagesComponent } from './messages/messages.component';
-import { GreetingService } from './services/greeting.service';
+import { GreetingService } from './shared/greeting.service';
 
 @Component({
-  selector: 'my-app',
+  selector: 'app-acme-supermarket',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
  })
 
-export class AppComponent  {
+export class AppComponent implements OnInit {
 
   constructor(private greetingService: GreetingService) { }
   
