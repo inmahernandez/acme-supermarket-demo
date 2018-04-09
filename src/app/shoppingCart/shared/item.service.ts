@@ -7,14 +7,20 @@ import { of } from 'rxjs/observable/of';
 import { ItemModel } from '../../item-detail/shared/item.model';
 import { ITEMS } from './mock-items';
 import { MessageService } from '../../messages/shared/message.service';
+import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ItemService {
-  private itemsUrl = 'http://demo2821337.mockable.io/';
+  private itemsUrl = 'http://localhost:3000/api/items';
+  items: ItemModel[];
+  private loading: boolean;
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) { }
+  ) { 
+    this.loading = false;
+  }
 
   getItems(): Observable<ItemModel[]> {
     // Todo: send the message _after_ fetching the items
@@ -31,11 +37,17 @@ export class ItemService {
   /**
    * This method will be used once that we have a backend REST endpoint to call
    */
-  getRemoteItems():  Observable<any> {
+  /*getRemoteItems():  Observable<any> {
     // Todo: send the message _after_ fetching the items
-    this.messageService.add('ItemService: fetched non-deleted items');
+    this.messageService.add('ItemService: remotely fetched non-deleted items');
     return this.http.get(this.itemsUrl);
-   }
+   }*/
+
+   getRemoteItems() {
+    this.messageService.add(`ItemService: remotely fetched items`);
+    let url = `${this.itemsUrl}`;
+   return this.http.get(url).toPromise();
+  }
 
   getItem(id: number): Observable<ItemModel> {
     // Todo: send the message _after_ fetching the item
@@ -43,6 +55,22 @@ export class ItemService {
     return of(ITEMS.filter(item => item.id === id)[0]);
   }
 
+  getRemoteItem(id: number) {
+    this.messageService.add(`ItemService: fetched item id=${id}`);
+    return of(this.items.filter(item => item.id === id)[0]);
+  }
+
+  updateItem(it: ItemModel) {
+    let url = `${this.itemsUrl}/:${it.id}`;
+    let headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(url, JSON.stringify(it), {headers: headers})
+    .map(() => it)
+    .subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
+     
+  }
+  
 }
 
 

@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { ItemModel } from '../item-detail/shared/item.model';
 import { ItemService } from './shared/item.service';
+import { ShoppingCart } from './shared/shoppingCart.model';
 
 @Component({
   selector: 'app-shoppingCart',
@@ -25,6 +26,7 @@ export class ShoppingCartComponent implements OnInit {
   public maxSize = 5;
   public numPages = 1;
   public length = 0;
+  data: any[];
 
   public config:any = {
     paging: true,
@@ -33,16 +35,21 @@ export class ShoppingCartComponent implements OnInit {
     className: ['table-striped', 'table-bordered']
   };
   
-  data: any[];
+ 
 
   constructor(private itemService: ItemService,  private router: Router, private route: ActivatedRoute) { 
-    
+    this.data = [];
   }
 
   ngOnInit() {
-    this.getItems();
-    this.length = this.data.length;
-    this.onChangeTable(this.config);
+    this.getItems()
+        .then((val) => 
+         { //console.log(val);
+           this.data = <ItemModel[]>val;
+           this.itemService.items = this.data;
+          this.onChangeTable(this.config);
+        })
+          .catch((err) => console.error(err));
   }
   
   public changePage(page:any, data:Array<any> = this.data):Array<any> {
@@ -105,7 +112,8 @@ export class ShoppingCartComponent implements OnInit {
     filteredData.forEach((item:any) => {
       let flag = false;
       this.columns.forEach((column:any) => {
-        if (item[column.name].toString().match(this.config.filtering.filterString)) {
+        let row = item[column.name];
+        if (row != null && row.toString().match(this.config.filtering.filterString)) {
           flag = true;
         }
       });
@@ -120,11 +128,13 @@ export class ShoppingCartComponent implements OnInit {
 
   public onChangeTable(config:any, page:any = {page: this.page, itemsPerPage: this.itemsPerPage}):any {
     if (config.filtering) {
-      Object.assign(this.config.filtering, config.filtering);
+      //Object.assign(this.config.filtering, config.filtering);
+      this.config.filtering = config.filtering;
     }
 
     if (config.sorting) {
-      Object.assign(this.config.sorting, config.sorting);
+      //Object.assign(this.config.sorting, config.sorting);
+      this.config.sorting = config.sorting;
     }
 
     const filteredData = this.changeFilter(this.data, this.config);
@@ -137,10 +147,12 @@ export class ShoppingCartComponent implements OnInit {
       this.router.navigate(['/detail/'+(+data.row.id)]);
   }
 
-  getItems(): void {
-    this.itemService.getNonDeletedItems()
-    //this.itemService.getRemoteItems()
-    .subscribe(items => this.data = items);
+  getItems() {
+   // this.itemService.getNonDeletedItems()
+   
+    return this.itemService.getRemoteItems();
+
+   
   }
 }
 

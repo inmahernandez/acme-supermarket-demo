@@ -1,4 +1,4 @@
 
-export class Item {
-  items: Item[];
+export class ShoppingCart {
+  items: ShoppingCart[];
 }

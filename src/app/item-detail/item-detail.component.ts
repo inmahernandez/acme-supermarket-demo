@@ -5,6 +5,7 @@ import 'rxjs/add/operator/switchMap';
 
 import { ItemModel } from './shared/item.model';
 import { ItemService } from '../shoppingCart/shared/item.service';
+import { ShoppingCart } from '../shoppingCart/shared/shoppingCart.model';
 
 @Component({
   selector: 'app-item-detail',
@@ -13,6 +14,7 @@ import { ItemService } from '../shoppingCart/shared/item.service';
 })
 export class ItemDetailComponent implements OnInit{
     @Input() item: ItemModel;
+    id: number;
 
     constructor(
         private itemService: ItemService,
@@ -21,12 +23,20 @@ export class ItemDetailComponent implements OnInit{
       ) {};
 
       ngOnInit(): void {
-        this.route.paramMap
-          .switchMap((params: ParamMap) => this.itemService.getItem(+params.get('id')))
-          .subscribe(item => this.item = item);
+        
+          this.route.params
+          .subscribe(params => this.id = +params['id']);
+          console.log(this.id);
+         this.getItem(this.id).subscribe(i => this.item = i);
+        
+
       };
 
       goBack(): void {
         this.location.back();
       };
+      
+      getItem(id: number) {
+        return this.itemService.getRemoteItem(id);
+      }
 }
