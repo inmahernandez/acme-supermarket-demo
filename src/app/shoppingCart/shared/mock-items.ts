@@ -1,4 +1,4 @@
-import { ItemModel } from '../../item-detail/shared/item.model';
+import { ItemModel } from '../../model/item.model';
 
 export const ITEMS: ItemModel[] = [
   { id: 0, sku: '00', deleted: true, name: 'ERROR', description: 'bla', price:-1, tags: [''], picture: '', currency: 'Euro' },

@@ -6,6 +6,8 @@ import { ShoppingCartComponent } from './shoppingCart/shoppingCart.component';
 import { ItemDetailComponent } from './item-detail/item-detail.component';
 import { LoginComponent} from './login/login.component';
 import { RegisterComponent} from './register/register.component';
+import { UserComponent} from './user/user.component';
+import { UserResolver} from './user/user.resolver';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -15,6 +17,7 @@ const routes: Routes = [
  // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'user', component: UserComponent,  resolve: { data: UserResolver}}
 ];
 
 @NgModule({

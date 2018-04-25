@@ -1,0 +1,97 @@
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
+import 'rxjs/add/operator/switchMap';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { ItemModel } from '../model/item.model';
+import { ItemService } from '../services/item.service';
+import { ShoppingCart } from '../services/shoppingCart.model';
+
+@Component({
+  selector: 'app-item-detail',
+  templateUrl: './item-detail.component.html',
+  styleUrls: ['./item-detail.component.css'],
+})
+export class ItemDetailComponent implements OnInit {
+  @Input() item: ItemModel;
+  id: number;
+  clicked = false;
+  name: string;
+  description: string;
+  price: number;
+  tags: string;
+  picture: string;
+  currency: string;
+  form;
+
+  constructor(
+    private itemService: ItemService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) { };
+
+  ngOnInit(): void {
+
+    this.route.params
+      .subscribe(params => this.id = +params['id']);
+    console.log(this.id);
+    this.getItem(this.id).subscribe(i => this.item = i);
+    this.form = new FormGroup({
+      name: new FormControl("", Validators.required),
+      description: new FormControl("", Validators.required),
+      price: new FormControl("", Validators.required),
+      tags: new FormControl("", Validators.required),
+      picture: new FormControl("", Validators.required),
+      currency: new FormControl("", Validators.required)
+    });
+
+  };
+
+  goBack(): void {
+    this.location.back();
+  };
+
+  getItem(id: number) {
+    return this.itemService.getRemoteItem(id);
+  }
+
+  onRegisterSubmit(e) {
+    // since field is disabled, we need to use 'getRawValue'
+    let index = this.form.getRawValue().index
+    if (index != null) {
+      this.itemService.items[index] = this.form.value
+    } else {
+      this.itemService.items.push(this.form.value)
+    }
+    this.form.reset() // reset form to empty
+  }
+
+  editIndex = null;
+
+  clickEdit(i) {
+    this.clicked = !this.clicked;
+    this.editIndex = i;
+  }
+
+  onEditSubmit(e) {
+    let editItem = {
+      name: this.name,
+      description: this.description,
+      price: this.price,
+      tags: this.tags,
+      picture: this.picture,
+      currency: this.currency
+    }
+    this.itemService.items[this.editIndex].name = name;
+    this.clearInputFields(e);
+    this.clicked = !this.clicked;
+  }
+
+  clearInputFields(e) {
+    let all = e.target.querySelectorAll('input');
+    Object.keys(all).forEach(key => {
+      console.log(all[key].value = '');
+    });
+  }
+}

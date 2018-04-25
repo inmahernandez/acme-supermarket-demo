@@ -3,9 +3,9 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
 
-import { ItemModel } from './shared/item.model';
-import { ItemService } from '../shoppingCart/shared/item.service';
-import { ShoppingCart } from '../shoppingCart/shared/shoppingCart.model';
+import { ItemModel } from '../model/item.model';
+import { ItemService } from '../services/item.service';
+import { ShoppingCart } from '../model/shoppingCart.model';
 
 @Component({
   selector: 'app-item-detail',
@@ -27,7 +27,14 @@ export class ItemDetailComponent implements OnInit{
           this.route.params
           .subscribe(params => this.id = +params['id']);
           console.log(this.id);
-         this.getItem(this.id).subscribe(i => this.item = i);
+        // this.getItem(this.id).subscribe(i => this.item = i);
+        this.getItem(this.id)
+        .then((val) => 
+         { 
+           console.log(val);
+           this.item = <ItemModel>val;
+        })
+          .catch((err) => console.error(err));
         
 
       };

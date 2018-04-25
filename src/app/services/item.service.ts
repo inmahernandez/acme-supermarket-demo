@@ -4,9 +4,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { ItemModel } from '../../item-detail/shared/item.model';
-import { ITEMS } from './mock-items';
-import { MessageService } from '../../messages/shared/message.service';
+import { ItemModel } from '../model/item.model';
+import { ITEMS } from '../shoppingCart/shared/mock-items';
+import { MessageService } from './message.service';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -57,17 +57,19 @@ export class ItemService {
 
   getRemoteItem(id: number) {
     this.messageService.add(`ItemService: fetched item id=${id}`);
-    return of(this.items.filter(item => item.id === id)[0]);
+   // return of(this.items.filter(item => item.id === id)[0]);
+   let url = `${this.itemsUrl}/${id}`;
+   return this.http.get(url).toPromise();
   }
 
   updateItem(it: ItemModel) {
-    let url = `${this.itemsUrl}/:${it.id}`;
+    let url = `${this.itemsUrl}/${it.id}`;
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.put(url, JSON.stringify(it), {headers: headers})
-    .map(() => it)
-    .subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
+    //return this.http.put(url, JSON.stringify(it), {headers: headers})
+    //.map(() => it)
+    //.subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
      
   }
   

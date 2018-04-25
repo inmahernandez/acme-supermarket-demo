@@ -6,6 +6,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
 import { registerLocaleData } from '@angular/common';
 import locale from '@angular/common/locales/es';
+import { ReactiveFormsModule } from '@angular/forms';
+
+//Firebase auth
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
 
 import { Ng2TableModule } from 'ng2-table/components/ng-table-module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
@@ -20,14 +25,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { MessagesComponent } from './messages/messages.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { UserComponent } from './user/user.component';
 
 import { environment } from '../environments/environment';
 
 //Providers
-import { ItemService } from './shoppingCart/shared/item.service';
-import { GreetingService } from './shared/greeting.service';
-import { MessageService } from './messages/shared/message.service';
-import { AlertService, AuthenticationService, UserService } from './shared/index';
+import { ItemService } from './services/item.service';
+import { MessageService } from './services/message.service';
+import { AlertService} from './services/alert.service';
+import {  AuthenticationService} from './services/authentication.service';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './services/auth.guard';
+import { UserResolver } from './user/user.resolver';
 
 @NgModule({
   imports:      [ BrowserModule, 
@@ -39,14 +48,21 @@ import { AlertService, AuthenticationService, UserService } from './shared/index
                   Ng2TableModule,
                   PaginationModule.forRoot(),
                   TabsModule,
+                  AngularFireModule.initializeApp(environment.firebase),
+                  AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+                  ReactiveFormsModule
                 ],
   declarations: [ AppComponent, ItemDetailComponent, 
         ShoppingCartComponent, DashboardComponent, 
         MessagesComponent, LoginComponent, 
-        RegisterComponent ],
+        RegisterComponent, UserComponent ],
   bootstrap:    [ AppComponent ],
-  providers: [ItemService, MessageService, 
-        GreetingService, AuthenticationService,
-      UserService, AlertService],
+  providers: [    ItemService, 
+                  MessageService, 
+                  AuthenticationService,
+                  UserService, 
+                  AlertService,
+                AuthGuard,
+              UserResolver],
 })
 export class AppModule { }

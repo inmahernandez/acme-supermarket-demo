@@ -1,42 +1,61 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-
-import { AlertService, AuthenticationService } from '../shared/index';
+﻿import { Component } from '@angular/core';
+import { AuthenticationService } from '../services/authentication.service'
+import { Router, Params } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-    moduleId: module.id,
-    templateUrl: 'login.component.html'
+  selector: 'page-login',
+  templateUrl: 'login.component.html',
+  styleUrls: ['login.scss']
 })
+export class LoginComponent {
 
-export class LoginComponent implements OnInit {
-    model: any = {};
-    loading = false;
-    returnUrl: string;
+  loginForm: FormGroup;
+  errorMessage: string = '';
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router,
-        private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+  constructor(
+    public authService: AuthenticationService,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    this.createForm();
+  }
 
-    ngOnInit() {
-        // reset login status
-        this.authenticationService.logout();
+  createForm() {
+    this.loginForm = this.fb.group({
+      email: ['', Validators.required ],
+      password: ['',Validators.required]
+    });
+  }
 
-        // get return url from route parameters or default to '/'
-        this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    }
+  tryFacebookLogin(){
+    this.authService.doFacebookLogin()
+    .then(res => {
+      this.router.navigate(['/user']);
+    })
+  }
 
-    login() {
-        this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
-            .subscribe(
-                data => {
-                    this.router.navigate([this.returnUrl]);
-                },
-                error => {
-                    this.alertService.error(error);
-                    this.loading = false;
-                });
-    }
+  /*tryTwitterLogin(){
+    this.authService.doTwitterLogin()
+    .then(res => {
+      this.router.navigate(['/user']);
+    })
+  }*/
+
+  tryGoogleLogin(){
+    this.authService.doGoogleLogin()
+    .then(res => {
+      this.router.navigate(['/user']);
+    })
+  }
+
+  tryLogin(value){
+    this.authService.doLogin(value)
+    .then(res => {
+      this.router.navigate(['/user']);
+    }, err => {
+      console.log(err);
+      this.errorMessage = err.message;
+    })
+  }
 }
