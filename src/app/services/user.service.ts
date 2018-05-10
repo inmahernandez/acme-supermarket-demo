@@ -7,7 +7,6 @@ import * as firebase from 'firebase/app';
 export class UserService {
 
   constructor(
-   //public db: AngularFirestore,
    public afAuth: AngularFireAuth
  ){
  }

@@ -10,7 +10,7 @@ import { UserComponent} from './user/user.component';
 import { UserResolver} from './user/user.resolver';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: ItemDetailComponent },
   { path: 'items',     component: ShoppingCartComponent },

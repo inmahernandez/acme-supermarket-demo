@@ -9,11 +9,17 @@ import { ITEMS } from '../shoppingCart/shared/mock-items';
 import { MessageService } from './message.service';
 import 'rxjs/add/operator/toPromise';
 
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
+
 @Injectable()
 export class ItemService {
   private itemsUrl = 'http://localhost:3000/api/items';
   items: ItemModel[];
   private loading: boolean;
+
+  
 
   constructor(
     private http: HttpClient,
@@ -67,13 +73,25 @@ export class ItemService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.put(url, JSON.stringify(it), {headers: headers}).toPromise();
+
+    let body = JSON.stringify(it);
+    console.log(body);
+     return this.http.put(url, body, httpOptions).subscribe(
+             data => {
+               // refresh the list
+               return true;
+             },
+             error => {
+               console.error("Error saving item!");
+               return Observable.throw(error);
+             }
+          );;
     //.map(() => it)
    // .subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
      
 
-    /*return new Promise<any>((resolve, reject) => {
-      firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+   /* return new Promise<any>((resolve, reject) => {
+      this.http.put(url, str, {headers: headers}).toPromise()
       .then(res => {
         resolve(res);
       }, err => reject(err))

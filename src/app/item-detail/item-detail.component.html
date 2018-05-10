@@ -23,13 +23,13 @@
   <div>
     <label>picture: </label>
     <input [(ngModel)]="item.picture" placeholder="picture" />
-    <img src="{{item.picture}}" alt="Item picture" />
+    <img src="{{item.picture}}" alt="Item picture" width="500"/>
   </div>
   <div>
     <label>currency: </label>
     <input [(ngModel)]="item.currency" placeholder="currency" width=50/>
   </div>
   <button type="submit" (click)="tryUpdate()">Save</button>
+  <button (click)="goBack()">Back</button>
 </div>
 
-<button (click)="goBack()">Back</button>
