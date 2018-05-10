@@ -67,10 +67,17 @@ export class ItemService {
     let headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    //return this.http.put(url, JSON.stringify(it), {headers: headers})
+    return this.http.put(url, JSON.stringify(it), {headers: headers}).toPromise();
     //.map(() => it)
-    //.subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
+   // .subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
      
+
+    /*return new Promise<any>((resolve, reject) => {
+      firebase.auth().createUserWithEmailAndPassword(value.email, value.password)
+      .then(res => {
+        resolve(res);
+      }, err => reject(err))
+    })*/
   }
   
 }

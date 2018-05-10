@@ -2,6 +2,8 @@ import { Component, Input, OnInit} from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import 'rxjs/add/operator/switchMap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 import { ItemModel } from '../model/item.model';
 import { ItemService } from '../services/item.service';
@@ -15,12 +17,18 @@ import { ShoppingCart } from '../model/shoppingCart.model';
 export class ItemDetailComponent implements OnInit{
     @Input() item: ItemModel;
     id: number;
+    updateForm: FormGroup;
+    errorMessage: string = 'ERROR';
+    successMessage: string = 'SUCCESS';
 
     constructor(
         private itemService: ItemService,
         private route: ActivatedRoute,
-        private location: Location
-      ) {};
+        private location: Location,
+        private fb: FormBuilder
+      ) {
+        this.createForm();
+      };
 
       ngOnInit(): void {
         
@@ -39,11 +47,34 @@ export class ItemDetailComponent implements OnInit{
 
       };
 
+      createForm() {
+        this.updateForm = this.fb.group({
+          name: ['', Validators.required ],
+          description: ['',Validators.required],
+          price: ['',Validators.required, Validators.min(0)],
+          tags: [''],
+          picture: [''],
+          currency: ['', Validators.pattern("EUR|USD")]
+        });
+      }
+
       goBack(): void {
         this.location.back();
       };
       
       getItem(id: number) {
         return this.itemService.getRemoteItem(id);
+      }
+      tryUpdate(){
+        this.itemService.updateItem(this.item)
+        .then(res => {
+          console.log(res);
+          this.errorMessage = "";
+          this.successMessage = "The item has been succesfully updated";
+        }, err => {
+          console.log(err);
+          this.errorMessage = err.message;
+          this.successMessage = "";
+        })
       }
 }
