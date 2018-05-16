@@ -20,8 +20,8 @@ export class ItemDetailComponent implements OnInit{
     @Input() item: ItemModel;
     id: number;
     updateForm: FormGroup;
-    errorMessage: string = 'ERROR';
-    successMessage: string = 'SUCCESS';
+    errorMessage: string = '';
+    successMessage: string = '';
 
     constructor(
         private itemService: ItemService,
@@ -55,9 +55,8 @@ export class ItemDetailComponent implements OnInit{
           name: ['', Validators.required ],
           description: ['',Validators.required],
           price: ['',Validators.required, Validators.min(0)],
-          tags: [''],
           picture: [''],
-          currency: ['', Validators.pattern("EUR|USD")]
+          category: ['', Validators.required]
         });
       }
 
@@ -71,7 +70,7 @@ export class ItemDetailComponent implements OnInit{
       tryUpdate(){
        // console.log('Updating: ' + this.item.name);
         this.itemService.updateItem(this.item)
-       /* .then(res => {
+        .then(res => {
           console.log(res);
           this.errorMessage = "";
           this.successMessage = "The item has been succesfully updated";
@@ -80,7 +79,7 @@ export class ItemDetailComponent implements OnInit{
           console.log(err);
           this.errorMessage = err.message;
           this.successMessage = "";
-        })*/
+        })
       }
       
 }

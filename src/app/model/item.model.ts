@@ -5,7 +5,6 @@ export class ItemModel {
     name: string;
     description: string;
     price: number;
-    tags: string[];
     picture: string;
-    currency: string;
+    category: string;
   } 

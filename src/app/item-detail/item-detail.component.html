@@ -2,34 +2,37 @@
 <br/>
 <div *ngIf="item">
   <h2>{{item.name}} details!</h2>
-  <div>
-    <label>sku: </label>{{item.sku}}</div>
-  <div>
-    <label>name: </label>
-    <input [(ngModel)]="item.name" placeholder="name" />
+  <div  class="form-group">
+    <label>SKU: </label>{{item.sku}}
   </div>
-  <div>
-    <label>description: </label>
-    <input [(ngModel)]="item.description" placeholder="description" />
+  <div  class="form-group">
+    <label>Name: </label>
+    <input [(ngModel)]="item.name" placeholder="name" class="form-control"/>
+    <label class="error">{{errorMessage}}</label>
   </div>
-  <div>
-    <label>price: </label>
-    <input [(ngModel)]="item.price" placeholder="price" />
+  <div  class="form-group">
+    <label>Description: </label>
+    <input [(ngModel)]="item.description" placeholder="description" class="form-control"/>
+    <label class="error">{{errorMessage}}</label>
+   </div>
+  <div  class="form-group">
+    <label>Price: </label>
+    <input [(ngModel)]="item.price" placeholder="price" class="form-control"/>
+    <label class="error">{{errorMessage}}</label>
   </div>
-  <div>
-    <label>tags: </label>
-    <input [(ngModel)]="item.tags" placeholder="tags" />
+  <img src="{{item.picture}}" alt="Item picture" width="500"/>
+  <div  class="form-group">
+    <label>Picture: </label>
+    <input [(ngModel)]="item.picture" placeholder="picture" class="form-control"/>
+    <label class="error">{{errorMessage}}</label>
   </div>
-  <div>
-    <label>picture: </label>
-    <input [(ngModel)]="item.picture" placeholder="picture" />
-    <img src="{{item.picture}}" alt="Item picture" width="500"/>
-  </div>
-  <div>
-    <label>currency: </label>
-    <input [(ngModel)]="item.currency" placeholder="currency" width=50/>
+  <div  class="form-group">
+    <label>Category: </label>
+    <input [(ngModel)]="item.category" placeholder="category" width=50 class="form-control"/>
+    <label class="error">{{errorMessage}}</label>
   </div>
   <button type="submit" (click)="tryUpdate()">Save</button>
   <button (click)="goBack()">Back</button>
+  <label class="success">{{successMessage}}</label>
 </div>
 

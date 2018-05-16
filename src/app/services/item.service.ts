@@ -76,7 +76,7 @@ export class ItemService {
 
     let body = JSON.stringify(it);
     console.log(body);
-     return this.http.put(url, body, httpOptions).subscribe(
+     /*return this.http.put(url, body, httpOptions).subscribe(
              data => {
                // refresh the list
                return true;
@@ -85,17 +85,13 @@ export class ItemService {
                console.error("Error saving item!");
                return Observable.throw(error);
              }
-          );;
-    //.map(() => it)
-   // .subscribe(data => console.log('updateProduct: ' + JSON.parse(JSON.stringify(data || null)) ));
-     
-
-   /* return new Promise<any>((resolve, reject) => {
-      this.http.put(url, str, {headers: headers}).toPromise()
-      .then(res => {
-        resolve(res);
-      }, err => reject(err))
-    })*/
+          );*/
+          return new Promise<any>((resolve, reject) => {
+            this.http.put(url, body, httpOptions).toPromise()
+            .then(res => {
+              resolve(res);
+            }, err => reject(err))
+          })
   }
   
 }

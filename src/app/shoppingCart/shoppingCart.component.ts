@@ -16,10 +16,9 @@ export class ShoppingCartComponent implements OnInit {
   public columns:Array<any> = [
     {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'SKU', name: 'sku', sort: '', filtering: {filterString: '', placeholder: 'Filter by SKU'}},
-    {title: 'Description', className: ['office-header', 'text-success'], name: 'description', sort: 'asc', filtering: {filterString: '', placeholder: 'Filter by description'}},
+    {title: 'Description', name: 'description', sort: 'asc', filtering: {filterString: '', placeholder: 'Filter by description'}},
     {title: 'Price', name: 'price', sort: '', filtering: {filterString: '', placeholder: 'Filter by price.'}},
-    {title: 'Tags', className: 'text-warning', name: 'tags', filtering: false},
-    {title: 'Deleted ', name: 'deleted', filtering: false}
+    //{title: 'Category', name: 'category', sort: '', filtering: {filterString: '', placeholder: 'Filter by category.'}}
   ];
   public page = 1;
   public itemsPerPage = 10;
