@@ -8,11 +8,13 @@ import { LoginComponent} from './login/login.component';
 import { RegisterComponent} from './register/register.component';
 import { UserComponent} from './user/user.component';
 import { UserResolver} from './user/user.resolver';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/', pathMatch: 'full' },
   { path: 'dashboard',  component: DashboardComponent },
-  { path: 'detail/:id', component: ItemDetailComponent },
+ // { path: 'detail/:id', component: ItemDetailComponent },
+ { path: 'detail/:id', component: ItemFormComponent },
   { path: 'items',     component: ShoppingCartComponent },
  // { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },

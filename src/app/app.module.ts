@@ -26,6 +26,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
+import { ItemFormComponent } from './item-form/item-form.component';
 
 import { environment } from '../environments/environment';
 
@@ -37,6 +38,7 @@ import {  AuthenticationService} from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { AuthGuard } from './services/auth.guard';
 import { UserResolver } from './user/user.resolver';
+import {CategoryService} from './services/categories.service';
 
 @NgModule({
   imports:      [ BrowserModule, 
@@ -55,13 +57,14 @@ import { UserResolver } from './user/user.resolver';
   declarations: [ AppComponent, ItemDetailComponent, 
         ShoppingCartComponent, DashboardComponent, 
         MessagesComponent, LoginComponent, 
-        RegisterComponent, UserComponent ],
+        RegisterComponent, UserComponent, ItemFormComponent ],
   bootstrap:    [ AppComponent ],
   providers: [    ItemService, 
                   MessageService, 
                   AuthenticationService,
                   UserService, 
                   AlertService,
+                  CategoryService,
                 AuthGuard,
               UserResolver],
 })
