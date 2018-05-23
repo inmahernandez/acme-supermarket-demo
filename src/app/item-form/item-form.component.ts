@@ -31,6 +31,10 @@ export class ItemFormComponent {
  // get diagnostic() { return JSON.stringify(this.item); }
 
  ngOnInit() {
+
+  //Add validators to form
+  
+
    //Recover id param
   this.route.params
     .subscribe(params => this.id = +params['id']);

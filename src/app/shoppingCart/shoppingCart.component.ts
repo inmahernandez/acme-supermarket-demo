@@ -14,11 +14,11 @@ export class ShoppingCartComponent implements OnInit {
   
   public rows:Array<any> = [];
   public columns:Array<any> = [
-    {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'SKU', name: 'sku', sort: '', filtering: {filterString: '', placeholder: 'Filter by SKU'}},
+    {title: 'Name', name: 'name', filtering: {filterString: '', placeholder: 'Filter by name'}},
     {title: 'Description', name: 'description', sort: 'asc', filtering: {filterString: '', placeholder: 'Filter by description'}},
     {title: 'Price', name: 'price', sort: '', filtering: {filterString: '', placeholder: 'Filter by price.'}},
-    //{title: 'Category', name: 'category', sort: '', filtering: {filterString: '', placeholder: 'Filter by category.'}}
+    {title: 'Category', name: 'category_id', sort: '', filtering: {filterString: '', placeholder: 'Filter by category.'}}
   ];
   public page = 1;
   public itemsPerPage = 10;
@@ -147,17 +147,10 @@ export class ShoppingCartComponent implements OnInit {
   }
 
   getItems() {
-   // this.itemService.getNonDeletedItems()
-   
     return this.itemService.getRemoteItems();
+  }
 
-   
+  newItem() {
+    this.router.navigate(['/detail/-1']);
   }
 }
-
-
-/*
-Copyright 2017 Google Inc. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at http://angular.io/license
-*/

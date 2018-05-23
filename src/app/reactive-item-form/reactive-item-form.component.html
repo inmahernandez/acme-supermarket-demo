@@ -1,0 +1,40 @@
+<h2>Edit Item</h2>
+<!--<h3><i>FormControl in a FormGroup</i></h3>-->
+<form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <input class="form-control" formControlName="id" type="hidden">
+
+    <label class="center-block">SKU:
+      <input class="form-control" formControlName="sku">
+    </label>
+
+    <label class="center-block">Category:
+      <select class="form-control" formControlName="category">
+        <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
+      </select>
+    </label>
+    <label class="center-block">Name:
+      <input class="form-control" formControlName="name">
+    </label>
+    <label class="center-block">Description:
+      <input class="form-control" formControlName="description">
+    </label>
+    <label class="center-block">Price:
+      <input class="form-control" formControlName="price">
+    </label>
+    <label class="center-block">Picture:
+      <input class="form-control" formControlName="picture">
+    </label>
+
+
+    <button type="submit" class="btn btn-success" [disabled]="itemForm.pristine">Save</button>
+    <button type="button" class="btn btn-danger" (click)="delete(); itemForm.reset()">Delete</button>
+    <button (click)="goBack()" class="btn btn-primary">Cancel</button>
+
+    <div *ngIf="submitted">
+      <p>Item succesfully saved!</p>
+    </div>
+  </div>
+</form>
+
+<p>Form status: {{ itemForm.status | json }}</p>

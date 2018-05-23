@@ -17,8 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getItems(): void {
-    this.itemService.getNonDeletedItems()
-      .subscribe(data => this.items = data.slice(1, 5));
+    
   }
 }
 

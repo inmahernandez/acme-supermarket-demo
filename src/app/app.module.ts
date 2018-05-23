@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from "@angular/common";
@@ -27,45 +27,47 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { UserComponent } from './user/user.component';
 import { ItemFormComponent } from './item-form/item-form.component';
+import { ReactiveItemFormComponent } from './reactive-item-form/reactive-item-form.component';
+
 
 import { environment } from '../environments/environment';
 
 //Providers
 import { ItemService } from './services/item.service';
 import { MessageService } from './services/message.service';
-import { AlertService} from './services/alert.service';
-import {  AuthenticationService} from './services/authentication.service';
+import { AlertService } from './services/alert.service';
+import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { AuthGuard } from './services/auth.guard';
 import { UserResolver } from './user/user.resolver';
-import {CategoryService} from './services/categories.service';
+import { CategoryService } from './services/categories.service';
 
 @NgModule({
-  imports:      [ BrowserModule, 
-                  FormsModule, 
-                  HttpModule,
-                  AppRoutingModule,
-                  HttpClientModule,
-                  CommonModule,
-                  Ng2TableModule,
-                  PaginationModule.forRoot(),
-                  TabsModule,
-                  AngularFireModule.initializeApp(environment.firebase),
-                  AngularFireAuthModule, // imports firebase/auth, only needed for auth features
-                  ReactiveFormsModule
-                ],
-  declarations: [ AppComponent, ItemDetailComponent, 
-        ShoppingCartComponent, DashboardComponent, 
-        MessagesComponent, LoginComponent, 
-        RegisterComponent, UserComponent, ItemFormComponent ],
-  bootstrap:    [ AppComponent ],
-  providers: [    ItemService, 
-                  MessageService, 
-                  AuthenticationService,
-                  UserService, 
-                  AlertService,
-                  CategoryService,
-                AuthGuard,
-              UserResolver],
+  imports: [BrowserModule,
+    FormsModule,
+    HttpModule,
+    AppRoutingModule,
+    HttpClientModule,
+    CommonModule,
+    Ng2TableModule,
+    PaginationModule.forRoot(),
+    TabsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule, // imports firebase/auth, only needed for auth features
+    ReactiveFormsModule
+  ],
+  declarations: [AppComponent, ItemDetailComponent,
+    ShoppingCartComponent, DashboardComponent,
+    MessagesComponent, LoginComponent,
+    RegisterComponent, UserComponent, ItemFormComponent, ReactiveItemFormComponent],
+  bootstrap: [AppComponent],
+  providers: [ItemService,
+    MessageService,
+    AuthenticationService,
+    UserService,
+    AlertService,
+    CategoryService,
+    AuthGuard,
+    UserResolver],
 })
 export class AppModule { }
