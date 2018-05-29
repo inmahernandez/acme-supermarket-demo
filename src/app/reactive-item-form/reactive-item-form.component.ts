@@ -7,6 +7,7 @@ import { Category } from '../model/category.model';
 import { ItemService } from '../services/item.service';
 import { CategoryService } from '../services/categories.service';
 import { ItemModel } from '../model/item.model';
+import { ValidateUrl } from '../validators/url.validator';
 
 @Component({
     selector: 'app-reactive-item-form',
@@ -38,7 +39,7 @@ export class ReactiveItemFormComponent {
             description: [this.item.description, Validators.required],
             price: [this.item.price, [Validators.required, Validators.min(0)]],
             //TODO: Include http url pattern:  
-            picture: [this.item.picture, Validators.pattern('^(http[s]?:\/\/){0,1}(www\.){0,1}[a-zA-Z0-9\.\-]+\.[a-zA-Z]{2,5}[\.]{0,1}')],
+            picture: [this.item.picture, ValidateUrl],
 
         });
 

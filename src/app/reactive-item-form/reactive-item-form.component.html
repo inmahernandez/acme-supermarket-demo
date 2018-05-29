@@ -2,39 +2,91 @@
 <!--<h3><i>FormControl in a FormGroup</i></h3>-->
 <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
+    <!-- Id is needed to update the item-->
     <input class="form-control" formControlName="id" type="hidden">
 
+     <!-- List of fields followed by the corresponding validation errors-->
+   
+    <!-- SKU is disabled-->
     <label class="center-block">SKU:
       <input class="form-control" formControlName="sku">
     </label>
+    <div *ngIf="itemForm.get('sku').errors &&
+      itemForm.get('sku').dirty && 
+      itemForm.get('sku').errors.required" class="alert alert-danger">
+      Oops, you must introduce a SKU.
+    </div>
 
     <label class="center-block">Category:
       <select class="form-control" formControlName="category">
         <option *ngFor="let category of categories" [value]="category.id">{{category.name}}</option>
       </select>
     </label>
+
+    <div *ngIf="itemForm.get('category').errors &&
+      itemForm.get('category').dirty && 
+      itemForm.get('category').errors.required" class="alert alert-danger">
+      Oops, you must select a category.
+    </div>
+    
     <label class="center-block">Name:
       <input class="form-control" formControlName="name">
     </label>
+    
+    <div *ngIf="itemForm.get('name').errors &&
+      itemForm.get('name').dirty && 
+      itemForm.get('name').errors.required" class="alert alert-danger">
+      Oops, you must introduce a name.
+    </div>
+    
     <label class="center-block">Description:
       <input class="form-control" formControlName="description">
     </label>
+    
+    <div *ngIf="itemForm.get('description').errors &&
+      itemForm.get('description').dirty && 
+      itemForm.get('description').errors.required" class="alert alert-danger">
+      Oops, you must introduce a description.
+    </div>
+    
     <label class="center-block">Price:
       <input class="form-control" formControlName="price">
     </label>
+    
+    <div *ngIf="itemForm.get('price').errors &&
+      itemForm.get('price').dirty && 
+      itemForm.get('price').errors.required" class="alert alert-danger">
+      Oops, you must introduce a valid number.
+    </div>
+    
+    <div *ngIf="itemForm.get('price').errors &&
+      itemForm.get('price').dirty && 
+      itemForm.get('price').errors.min" class="alert alert-danger">
+      Oops, only positive numbers are accepted.
+    </div>
+
     <label class="center-block">Picture:
       <input class="form-control" formControlName="picture">
     </label>
 
+    <div *ngIf="itemForm.get('picture').errors &&
+      itemForm.get('picture').dirty &&
+      !itemForm.get('picture').errors.validUrl" class="alert alert-danger">
+      Oops, only urls served over http are accepted.
+    </div>
 
-    <button type="submit" class="btn btn-success" [disabled]="itemForm.pristine">Save</button>
+    <!--form buttons-->
+    <button type="submit" class="btn btn-success" [disabled]="itemForm.invalid">Save</button>
     <button type="button" class="btn btn-danger" (click)="delete(); itemForm.reset()">Delete</button>
     <button (click)="goBack()" class="btn btn-primary">Cancel</button>
 
-    <div *ngIf="submitted">
-      <p>Item succesfully saved!</p>
-    </div>
   </div>
+
+  <!-- Message in case of sucessful submission-->
+  <div *ngIf="submitted" class="alert alert-success">
+    <p>Item succesfully saved!</p>
+  </div>
+
 </form>
 
-<p>Form status: {{ itemForm.status | json }}</p>
+<!--<p>Form status: {{ itemForm.status | json }}</p>-->
